@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pagos")
+@RequestMapping("/api/v1/pagos")
 public class PagoController {
     private final PagoService pagoService;
 

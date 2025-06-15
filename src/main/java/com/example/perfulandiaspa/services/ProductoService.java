@@ -1,33 +1,47 @@
 package com.example.perfulandiaspa.services;
 
 import com.example.perfulandiaspa.model.Producto;
-import com.example.perfulandiaspa.repository.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.perfulandiaspa.jparepository.ProductoJpaRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class ProductoService {
-    @Autowired
-    private ProductoRepository productoRepository;
 
+    private final ProductoJpaRepository productoJpaRepository;
+
+    // Inyección por constructor (recomendado por Spring)
+    public ProductoService(ProductoJpaRepository productoJpaRepository) {
+        this.productoJpaRepository = productoJpaRepository;
+    }
+
+    // Obtener todos los productos
     public List<Producto> getAllProductos() {
-        return productoRepository.findAll();
+        return productoJpaRepository.findAll();
     }
 
+    // Buscar producto por ID
     public Producto getProductoById(int id) {
-        return productoRepository.findById(id);
+        return productoJpaRepository.findById(id).orElse(null);
     }
 
+    // Crear nuevo producto
     public Producto createProducto(Producto producto) {
-        return productoRepository.save(producto);
+        return productoJpaRepository.save(producto);
     }
 
+    // Actualizar producto existente (JPA lo actualiza si el ID ya existe)
     public Producto updateProducto(Producto producto) {
-        return productoRepository.update(producto);
+        return productoJpaRepository.save(producto);
     }
 
+    // Eliminar producto por ID (solo si existe)
     public boolean deleteProducto(int id) {
-        return productoRepository.delete(id);
+        if (productoJpaRepository.existsById(id)) {
+            productoJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

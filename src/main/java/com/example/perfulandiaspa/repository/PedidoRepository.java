@@ -2,9 +2,9 @@ package com.example.perfulandiaspa.repository;
 
 import com.example.perfulandiaspa.model.Pedido;
 import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class PedidoRepository {
@@ -15,52 +15,67 @@ public class PedidoRepository {
     }
 
     public Pedido findById(int id) {
-        return pedidos.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+        for (Pedido p : pedidos) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public Pedido save(Pedido pedido) {
-        if(pedido.getId() == 0) {
-            int maxId = pedidos.stream()
-                    .mapToInt(Pedido::getId)
-                    .max()
-                    .orElse(0);
-            pedido.setId(maxId + 1);
+        if (pedido.getId() == 0) {
+            int nuevoId = pedidos.size() + 1;
+            pedido.setId(nuevoId);
         }
         pedidos.add(pedido);
         return pedido;
     }
 
     public Pedido update(Pedido pedido) {
-        Pedido existente = findById(pedido.getId());
-        if(existente != null) {
-            existente.setUsuarioId(pedido.getUsuarioId());
-            existente.setFecha(pedido.getFecha());
-            existente.setEstado(pedido.getEstado());
-            existente.setProductos(pedido.getProductos());
-            existente.setTotal(pedido.getTotal());
+        Pedido actual = findById(pedido.getId());
+        if (actual != null) {
+            actual.setUsuario(pedido.getUsuario());
+            actual.setFecha(pedido.getFecha());
+            actual.setEstado(pedido.getEstado());
+            actual.setProductos(pedido.getProductos());
+            actual.setTotal(pedido.getTotal());
         }
-        return existente;
+        return actual;
     }
 
     public boolean delete(int id) {
-        return pedidos.removeIf(p -> p.getId() == id);
+        Pedido pedido = findById(id);
+        if (pedido != null) {
+            pedidos.remove(pedido);
+            return true;
+        }
+        return false;
     }
 
     public List<Pedido> findByUsuarioId(int usuarioId) {
-        return pedidos.stream()
-                .filter(p -> p.getUsuarioId() == usuarioId)
-                .collect(Collectors.toList());
+        List<Pedido> resultado = new ArrayList<>();
+        for (Pedido p : pedidos) {
+            if (p.getUsuario() != null && p.getUsuario().getId() == usuarioId) {
+                resultado.add(p);
+            }
+        }
+        return resultado;
     }
 
     public List<Pedido> findByEstado(String estado) {
-        return pedidos.stream()
-                .filter(p -> p.getEstado().equalsIgnoreCase(estado))
-                .collect(Collectors.toList());
+        List<Pedido> resultado = new ArrayList<>();
+        for (Pedido p : pedidos) {
+            if (p.getEstado().equalsIgnoreCase(estado)) {
+                resultado.add(p);
+            }
+        }
+        return resultado;
     }
 
     public Pedido updateEstado(int id, String nuevoEstado) {
         Pedido pedido = findById(id);
-        if(pedido != null) {
+        if (pedido != null) {
             pedido.setEstado(nuevoEstado);
         }
         return pedido;

@@ -1,0 +1,14 @@
+
+
+                              ,...            ,,                             ,,    ,,
+`7MM"""Mq.                  .d' ""          `7MM                           `7MM    db                .M"""bgd `7MM"""Mq.   db
+  MM   `MM.                 dM`               MM                             MM                     ,MI    "Y   MM   `MM. ;MM:
+  MM   ,M9 .gP"Ya `7Mb,od8 mMMmm`7MM  `7MM    MM   ,6"Yb.  `7MMpMMMb.   ,M""bMM  `7MM   ,6"Yb.      `MMb.       MM   ,M9 ,V^MM.
+  MMmmdM9 ,M'   Yb  MM' "'  MM    MM    MM    MM  8)   MM    MM    MM ,AP    MM    MM  8)   MM        `YMMNq.   MMmmdM9 ,M  `MM
+  MM      8M""""""  MM      MM    MM    MM    MM   ,pm9MM    MM    MM 8MI    MM    MM   ,pm9MM      .     `MM   MM      AbmmmqMA
+  MM      YM.    ,  MM      MM    MM    MM    MM  8M   MM    MM    MM `Mb    MM    MM  8M   MM      Mb     dM   MM     A'     VML  ,,
+.JMML.     `Mbmmd'.JMML.  .JMML.  `Mbod"YML..JMML.`Moo9^Yo..JMML  JMML.`Wbmd"MML..JMML.`Moo9^Yo.    P"Ybmmd"  .JMML. .AMA.   .AMMA.db
+
+    ┏┓    ┏  ┓     ┓•    ┏┓┏┓┏┓
+::  ┃┃┏┓┏┓╋┓┏┃┏┓┏┓┏┫┓┏┓  ┗┓┃┃┣┫   ::${spring-boot.formatted-version}
+    ┣┛┗ ┛ ┛┗┻┗┗┻┛┗┗┻┗┗┻  ┗┛┣┛┛┗•

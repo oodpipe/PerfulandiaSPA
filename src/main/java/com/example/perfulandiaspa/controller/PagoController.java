@@ -5,35 +5,56 @@ import com.example.perfulandiaspa.services.PagoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/pagos")
 public class PagoController {
+
     private final PagoService pagoService;
 
     public PagoController(PagoService pagoService) {
         this.pagoService = pagoService;
     }
 
+    // Obtener todos los pagos
     @GetMapping
     public List<Pago> getAllPagos() {
         return pagoService.getAllPagos();
     }
 
+    // Obtener un pago por ID
     @GetMapping("/{id}")
-    public Optional<Pago> getPagoById(@PathVariable int id) {
+    public Pago getPagoById(@PathVariable int id) {
         return pagoService.getPagoById(id);
     }
 
+    // Crear un nuevo pago
     @PostMapping
-    public void addPago(@RequestBody Pago pago) {
-        pagoService.addPago(pago);
+    public Pago createPago(@RequestBody Pago pago) {
+        return pagoService.createPago(pago);
     }
 
+    // Eliminar un pago por ID
     @DeleteMapping("/{id}")
     public void deletePago(@PathVariable int id) {
         pagoService.deletePago(id);
     }
-}
 
+    // Obtener pagos por estado (por pagar, pagado)
+    @GetMapping("/estado/{estado}")
+    public List<Pago> getPagosByEstado(@PathVariable String estado) {
+        return pagoService.getPagosByEstado(estado);
+    }
+
+    // Obtener pagos por usuario ID
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Pago> getPagosByUsuario(@PathVariable int usuarioId) {
+        return pagoService.getPagosByUsuario(usuarioId);
+    }
+
+    // Actualizar un pago
+    @PutMapping
+    public Pago updatePago(@RequestBody Pago pago) {
+        return pagoService.updatePago(pago);
+    }
+}

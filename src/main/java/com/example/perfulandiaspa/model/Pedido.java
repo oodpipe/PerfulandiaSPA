@@ -6,25 +6,25 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
-@Entity // Define esta clase como una tabla en la base de datos
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID autoincremental
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String fecha;
     private String estado; // En proceso, Enviado, Entregado
     private double total;
 
-    @ManyToOne // Relación con Usuario (cada pedido pertenece a un usuario)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id") // se cambia de usuario_id a cliente_id
+    private Cliente cliente; // antes era Usuario
 
-    @ManyToMany // Un pedido puede tener varios productos
+    @ManyToMany
     @JoinTable(
             name = "pedido_producto",
             joinColumns = @JoinColumn(name = "pedido_id"),

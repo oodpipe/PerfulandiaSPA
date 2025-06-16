@@ -12,6 +12,7 @@ public class PagoService {
 
     private final PagoJpaRepository pagoJpaRepository;
 
+    // Inyección por constructor
     public PagoService(PagoJpaRepository pagoJpaRepository) {
         this.pagoJpaRepository = pagoJpaRepository;
     }
@@ -26,7 +27,7 @@ public class PagoService {
         return pagoJpaRepository.findById(id).orElse(null);
     }
 
-    // Crear nuevo pago (calculando el total)
+    // Crear nuevo pago (calculando el total según los productos)
     public Pago createPago(Pago pago) {
         double total = pago.getProductos().stream()
                 .mapToDouble(Producto::getPrecio)
@@ -54,9 +55,8 @@ public class PagoService {
         return pagoJpaRepository.findByEstado(estado);
     }
 
-    // Buscar pagos por ID de usuario
-    public List<Pago> getPagosByUsuario(int usuarioId) {
-        return pagoJpaRepository.findByUsuarioId(usuarioId);
+    // Buscar pagos por ID de cliente
+    public List<Pago> getPagosByCliente(int clienteId) {
+        return pagoJpaRepository.findByCliente_Id(clienteId);
     }
-
 }

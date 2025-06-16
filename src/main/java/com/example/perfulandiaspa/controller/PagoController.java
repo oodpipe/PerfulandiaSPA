@@ -49,7 +49,7 @@ public class PagoController {
     // Obtener pagos por usuario ID
     @GetMapping("/usuario/{usuarioId}")
     public List<Pago> getPagosByUsuario(@PathVariable int usuarioId) {
-        return pagoService.getPagosByUsuario(usuarioId);
+        return pagoService.getPagosByCliente(usuarioId);
     }
 
     // Actualizar un pago

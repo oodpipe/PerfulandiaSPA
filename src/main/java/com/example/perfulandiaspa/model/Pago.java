@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Entity
@@ -18,22 +17,20 @@ public class Pago {
     private int id;
 
     private String fecha;
-
     private String estado; // por pagar, pagado
-
     private double total;
 
-    // Relación con Usuario (muchos pagos pueden ser de un usuario)
+    // Relación con Cliente (un pago pertenece a un cliente)
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "cliente_id") // nombre de la columna en la tabla
+    private Cliente cliente;
 
     // Relación con Pedido (un pago corresponde a un pedido)
     @OneToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    // Productos involucrados en el pago (mismo pedido)
+    // Productos asociados al pago
     @ManyToMany
     @JoinTable(
             name = "pago_producto",

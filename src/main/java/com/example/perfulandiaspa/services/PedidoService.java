@@ -50,9 +50,9 @@ public class PedidoService {
         return false;
     }
 
-    // Buscar pedidos por usuario (requiere método personalizado)
-    public List<Pedido> getPedidosByUsuario(int usuarioId) {
-        return pedidoJpaRepository.findByUsuario_Id(usuarioId);
+    // Buscar pedidos por usuario
+    public List<Pedido> getPedidosByCliente(int clienteId) {
+        return pedidoJpaRepository.findByCliente_Id((clienteId));
     }
 
     // Buscar pedidos por estado

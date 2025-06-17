@@ -40,16 +40,16 @@ public class PagoController {
         pagoService.deletePago(id);
     }
 
-    // Obtener pagos por estado (por pagar, pagado)
+    // Obtener pagos por estado
     @GetMapping("/estado/{estado}")
     public List<Pago> getPagosByEstado(@PathVariable String estado) {
         return pagoService.getPagosByEstado(estado);
     }
 
-    // Obtener pagos por usuario ID
-    @GetMapping("/usuario/{usuarioId}")
-    public List<Pago> getPagosByUsuario(@PathVariable int usuarioId) {
-        return pagoService.getPagosByCliente(usuarioId);
+    // Obtener pagos por cliente ID (corregido)
+    @GetMapping("/cliente/{clienteId}")
+    public List<Pago> getPagosByCliente(@PathVariable int clienteId) {
+        return pagoService.getPagosByCliente(clienteId);
     }
 
     // Actualizar un pago

@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/pedidos")
 public class PedidoController {
+
     @Autowired
     private PedidoService pedidoService;
 
@@ -22,15 +23,16 @@ public class PedidoController {
     @GetMapping("/{id}")
     public ResponseEntity<Pedido> getPedidoById(@PathVariable int id) {
         Pedido pedido = pedidoService.getPedidoById(id);
-        if(pedido != null) {
+        if (pedido != null) {
             return new ResponseEntity<>(pedido, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Pedido>> getPedidosByUsuario(@PathVariable int usuarioId) {
-        return new ResponseEntity<>(pedidoService.getPedidosByUsuario(usuarioId), HttpStatus.OK);
+    // Corregido: buscar por clienteId, no usuarioId
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<Pedido>> getPedidosByCliente(@PathVariable int clienteId) {
+        return new ResponseEntity<>(pedidoService.getPedidosByCliente(clienteId), HttpStatus.OK);
     }
 
     @GetMapping("/estado/{estado}")
@@ -47,7 +49,7 @@ public class PedidoController {
     public ResponseEntity<Pedido> updatePedido(@PathVariable int id, @RequestBody Pedido pedido) {
         pedido.setId(id);
         Pedido updated = pedidoService.updatePedido(pedido);
-        if(updated != null) {
+        if (updated != null) {
             return new ResponseEntity<>(updated, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -56,7 +58,7 @@ public class PedidoController {
     @PutMapping("/{id}/estado/{nuevoEstado}")
     public ResponseEntity<Pedido> updateEstadoPedido(@PathVariable int id, @PathVariable String nuevoEstado) {
         Pedido updated = pedidoService.updateEstadoPedido(id, nuevoEstado);
-        if(updated != null) {
+        if (updated != null) {
             return new ResponseEntity<>(updated, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,7 +66,7 @@ public class PedidoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePedido(@PathVariable int id) {
-        if(pedidoService.deletePedido(id)) {
+        if (pedidoService.deletePedido(id)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

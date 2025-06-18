@@ -19,7 +19,6 @@ Perfulandia SPA es un sistema de gestión de pedidos, pagos, productos, clientes
 - 📁 model
 - 📁 repository
 - 📁 services
-└── PerfulandiaSpaApplication.java
 
 ## 🧪 Pruebas realizadas
 

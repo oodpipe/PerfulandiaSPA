@@ -14,11 +14,11 @@ Perfulandia SPA es un sistema de gestión de pedidos, pagos, productos, clientes
 
 ## 📦 Estructura del Proyecto
 
-├── 📁 controller
-├── 📁 jparepository
-├── 📁 model
-├── 📁 repository
-├── 📁 services
+- 📁 controller
+- 📁 jparepository
+- 📁 model
+- 📁 repository
+- 📁 services
 └── PerfulandiaSpaApplication.java
 
 ## 🧪 Pruebas realizadas

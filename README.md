@@ -14,6 +14,47 @@ Perfulandia SPA es un sistema de gestión de pedidos, pagos, productos, clientes
 
 ## 📦 Estructura del Proyecto
 
+  /controller
+    - ClienteController.java
+    - PagoController.java
+    - PedidoController.java
+    - ProductoController.java
+    - SucursalController.java
+    - UsuarioController.java
+  
+  /jparepository
+    - ClienteJpaRepository.java
+    - PagoJpaRepository.java
+    - PedidoJpaRepository.java
+    - ProductoJpaRepository.java
+    - SucursalJpaRepository.java
+    - UsuarioJpaRepository.java
+  
+  /model
+    - Cliente.java
+    - Pago.java
+    - Pedido.java
+    - Producto.java
+    - Sucursal.java
+    - Usuario.java
+  
+  /repository
+    - ClienteRepository.java
+    - PagoRepository.java
+    - PedidoRepository.java
+    - ProductoRepository.java
+    - SucursalRepository.java
+    - UsuarioRepository.java
+  
+  /services
+    - ClienteService.java
+    - PagoService.java
+    - PedidoService.java
+    - ProductoService.java
+    - SucursalService.java
+    - UsuarioService.java
+  
+- PerfulandiaSpaApplication.java
 
 ## 🧪 Pruebas realizadas
 

@@ -36,7 +36,7 @@ public class UsuarioRepository {
             existente.setNombre(usuario.getNombre());
             existente.setEmail(usuario.getEmail());
             existente.setRol(usuario.getRol());
-            existente.setSucursalAsignada(usuario.getSucursalAsignada());
+            existente.setSucursal(usuario.getSucursal()); // actualizado aquí
         }
         return existente;
     }
@@ -51,10 +51,10 @@ public class UsuarioRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<Usuario> findBySucursal(String sucursal) {
+    public List<Usuario> findBySucursal(String nombreSucursal) {
         return usuarios.stream()
-                .filter(u -> u.getSucursalAsignada() != null &&
-                        u.getSucursalAsignada().equalsIgnoreCase(sucursal))
+                .filter(u -> u.getSucursal() != null &&
+                        u.getSucursal().getNombre().equalsIgnoreCase(nombreSucursal))
                 .collect(Collectors.toList());
     }
 }

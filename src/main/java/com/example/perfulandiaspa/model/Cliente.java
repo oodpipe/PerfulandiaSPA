@@ -19,4 +19,8 @@ public class Cliente {
     private String email;
     private String direccion;
     private String telefono;
+
+    @ManyToOne // Muchos clientes pueden pertenecer a una sucursal
+    @JoinColumn(name = "sucursal_id")
+    private Sucursal sucursal;
 }

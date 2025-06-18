@@ -18,5 +18,9 @@ public class Usuario {
     private String nombre;
     private String email;
     private String rol; // Admin, Gerente, Empleado, Logística
-    private String sucursalAsignada; // Para gerentes/empleados
+
+    // Relación con sucursal, solo para gerentes y empleados
+    @ManyToOne
+    @JoinColumn(name = "sucursal_id")
+    private Sucursal sucursal;
 }

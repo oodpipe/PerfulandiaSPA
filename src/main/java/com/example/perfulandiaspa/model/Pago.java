@@ -17,20 +17,17 @@ public class Pago {
     private int id;
 
     private String fecha;
-    private String estado; // por pagar, pagado
+    private String estado;
     private double total;
 
-    // Relación con Cliente (un pago pertenece a un cliente)
     @ManyToOne
-    @JoinColumn(name = "cliente_id") // nombre de la columna en la tabla
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    // Relación con Pedido (un pago corresponde a un pedido)
     @OneToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    // Productos asociados al pago
     @ManyToMany
     @JoinTable(
             name = "pago_producto",

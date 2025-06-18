@@ -26,6 +26,11 @@ public class ClienteService {
         return clienteJpaRepository.findById(id).orElse(null);
     }
 
+    // Obtener clientes por ID de sucursal
+    public List<Cliente> getClientesBySucursalId(int sucursalId) {
+        return clienteJpaRepository.findBySucursal_Id(sucursalId);
+    }
+
     // Crear un nuevo cliente
     public Cliente createCliente(Cliente cliente) {
         return clienteJpaRepository.save(cliente);

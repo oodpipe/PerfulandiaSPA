@@ -31,12 +31,12 @@ public class UsuarioService {
         return usuarioJpaRepository.save(usuario);
     }
 
-    // Actualizar un usuario existente (JPA detecta si el ID ya existe)
+    // Actualizar un usuario existente
     public Usuario updateUsuario(Usuario usuario) {
         return usuarioJpaRepository.save(usuario);
     }
 
-    // Eliminar un usuario por ID, si existe
+    // Eliminar un usuario por ID
     public boolean deleteUsuario(int id) {
         if (usuarioJpaRepository.existsById(id)) {
             usuarioJpaRepository.deleteById(id);
@@ -45,13 +45,12 @@ public class UsuarioService {
         return false;
     }
 
-    // Buscar usuarios por su rol (requiere método en el JpaRepository)
+    // Buscar usuarios por su rol
     public List<Usuario> getUsuariosByRol(String rol) {
         return usuarioJpaRepository.findByRol(rol);
     }
 
-    // Buscar usuarios por sucursal asignada (requiere método en el JpaRepository)
-    public List<Usuario> getUsuariosBySucursal(String sucursal) {
-        return usuarioJpaRepository.findBySucursalAsignada(sucursal);
+    public List<Usuario> getUsuariosBySucursalId(int id) {
+        return usuarioJpaRepository.findBySucursal_Id(id);
     }
 }

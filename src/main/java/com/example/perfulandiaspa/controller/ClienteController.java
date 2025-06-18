@@ -35,6 +35,12 @@ public class ClienteController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    // Obtener clientes según el ID de su sucursal
+    @GetMapping("/sucursal/{id}")
+    public ResponseEntity<List<Cliente>> getClientesBySucursalId(@PathVariable int id) {
+        return new ResponseEntity<>(clienteService.getClientesBySucursalId(id), HttpStatus.OK);
+    }
+
     // Crear nuevo cliente
     @PostMapping
     public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {

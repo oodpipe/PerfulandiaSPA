@@ -33,9 +33,9 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.getUsuariosByRol(rol), HttpStatus.OK);
     }
 
-    @GetMapping("/sucursal/{sucursal}")
-    public ResponseEntity<List<Usuario>> getUsuariosBySucursal(@PathVariable String sucursal) {
-        return new ResponseEntity<>(usuarioService.getUsuariosBySucursal(sucursal), HttpStatus.OK);
+    @GetMapping("/sucursal/{id}")
+    public ResponseEntity<List<Usuario>> getUsuariosBySucursalId(@PathVariable int id) {
+        return new ResponseEntity<>(usuarioService.getUsuariosBySucursalId(id), HttpStatus.OK);
     }
 
     @PostMapping

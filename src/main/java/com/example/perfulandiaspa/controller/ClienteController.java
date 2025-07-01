@@ -5,7 +5,6 @@ import com.example.perfulandiaspa.services.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -14,56 +13,49 @@ public class ClienteController {
 
     private final ClienteService clienteService;
 
-    // Inyección por constructor
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
     }
 
-    // Obtener todos los clientes
-    @GetMapping
-    public ResponseEntity<List<Cliente>> getAllClientes() {
-        return new ResponseEntity<>(clienteService.getAllClientes(), HttpStatus.OK);
-    }
-
-    // Obtener cliente por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getClienteById(@PathVariable int id) {
-        Cliente cliente = clienteService.getClienteById(id);
-        if (cliente != null) {
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    // Obtener clientes según el ID de su sucursal
-    @GetMapping("/sucursal/{id}")
-    public ResponseEntity<List<Cliente>> getClientesBySucursalId(@PathVariable int id) {
-        return new ResponseEntity<>(clienteService.getClientesBySucursalId(id), HttpStatus.OK);
-    }
-
-    // Crear nuevo cliente
     @PostMapping
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-        return new ResponseEntity<>(clienteService.createCliente(cliente), HttpStatus.CREATED);
+    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(clienteService.crearCliente(cliente));
     }
 
-    // Actualizar cliente existente
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> obtenerCliente(@PathVariable Long id) {
+        return clienteService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/con-historial")
+    public ResponseEntity<Cliente> obtenerClienteConHistorial(@PathVariable Long id) {
+        return clienteService.buscarPorIdConHistorial(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Cliente>> buscarPorNombre(@RequestParam String nombre) {
+        return ResponseEntity.ok(clienteService.buscarPorNombre(nombre));
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable int id, @RequestBody Cliente cliente) {
-        cliente.setId(id);
-        Cliente updated = clienteService.updateCliente(cliente);
-        if (updated != null) {
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Cliente> actualizarCliente(
+            @PathVariable Long id,
+            @RequestBody Cliente cliente) {
+        Cliente actualizado = clienteService.actualizarCliente(id, cliente);
+        return actualizado != null ?
+                ResponseEntity.ok(actualizado) :
+                ResponseEntity.notFound().build();
     }
 
-    // Eliminar cliente
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable int id) {
-        if (clienteService.deleteCliente(id)) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
+        return clienteService.eliminarCliente(id) ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.notFound().build();
     }
 }

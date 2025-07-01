@@ -3,48 +3,55 @@ package com.example.perfulandiaspa.services;
 import com.example.perfulandiaspa.model.Cliente;
 import com.example.perfulandiaspa.jparepository.ClienteJpaRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
 
-    private final ClienteJpaRepository clienteJpaRepository;
+    private final ClienteJpaRepository clienteRepository;
 
-    // Inyección del repositorio por constructor
-    public ClienteService(ClienteJpaRepository clienteJpaRepository) {
-        this.clienteJpaRepository = clienteJpaRepository;
+    public ClienteService(ClienteJpaRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
     }
 
-    // Obtener todos los clientes
-    public List<Cliente> getAllClientes() {
-        return clienteJpaRepository.findAll();
+    @Transactional
+    public Cliente crearCliente(Cliente cliente) {
+        return clienteRepository.save(cliente);
     }
 
-    // Obtener un cliente por su ID
-    public Cliente getClienteById(int id) {
-        return clienteJpaRepository.findById(id).orElse(null);
+    @Transactional(readOnly = true)
+    public Optional<Cliente> buscarPorId(Long id) {
+        return clienteRepository.findById(id);
     }
 
-    // Obtener clientes por ID de sucursal
-    public List<Cliente> getClientesBySucursalId(int sucursalId) {
-        return clienteJpaRepository.findBySucursal_Id(sucursalId);
+    @Transactional(readOnly = true)
+    public Optional<Cliente> buscarPorIdConHistorial(Long id) {
+        return clienteRepository.findByIdWithHistorial(id);
     }
 
-    // Crear un nuevo cliente
-    public Cliente createCliente(Cliente cliente) {
-        return clienteJpaRepository.save(cliente);
+    @Transactional(readOnly = true)
+    public List<Cliente> buscarPorNombre(String termino) {
+        return clienteRepository.buscarPorNombre(termino);
     }
 
-    // Actualizar un cliente existente
-    public Cliente updateCliente(Cliente cliente) {
-        return clienteJpaRepository.save(cliente);
+    @Transactional
+    public Cliente actualizarCliente(Long id, Cliente clienteActualizado) {
+        return clienteRepository.findById(id)
+                .map(cliente -> {
+                    cliente.setNombre(clienteActualizado.getNombre());
+                    cliente.setEmail(clienteActualizado.getEmail());
+                    cliente.setDireccion(clienteActualizado.getDireccion());
+                    cliente.setTelefono(clienteActualizado.getTelefono());
+                    return clienteRepository.save(cliente);
+                }).orElse(null);
     }
 
-    // Eliminar cliente por ID
-    public boolean deleteCliente(int id) {
-        if (clienteJpaRepository.existsById(id)) {
-            clienteJpaRepository.deleteById(id);
+    @Transactional
+    public boolean eliminarCliente(Long id) {
+        if (clienteRepository.existsById(id)) {
+            clienteRepository.deleteById(id);
             return true;
         }
         return false;

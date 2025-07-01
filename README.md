@@ -1,113 +1,98 @@
-🧴 Perfulandia SPA – Sistema de Gestión de Perfumería
-Perfulandia SPA es un sistema de gestión integral para una tienda de perfumes. Permite administrar pedidos, pagos, productos, clientes, usuarios y sucursales. Está construido en Java usando Spring Boot y cuenta con pruebas unitarias completas para asegurar la calidad del software.
+# 🧴 Perfulandia SPA
 
-🚀 Tecnologías Utilizadas
-Java 17
+Perfulandia SPA es un sistema de gestión de pedidos, pagos, productos, clientes, usuarios y sucursales desarrollado en Java con Spring Boot. Este sistema simula el funcionamiento de una tienda de perfumes que opera con usuarios administrativos y clientes que realizan pedidos.
 
-Spring Boot
+---
 
-Spring Data JPA
+## 🚀 Tecnologías utilizadas
 
-H2 Database (en memoria)
+- Java 17  
+- Spring Boot  
+- Spring Data JPA  
+- H2 Database (en memoria)  
+- Lombok  
+- Maven  
+- Postman  
+- JUnit 5 + MockMvc (para pruebas unitarias)
 
-Lombok
+---
 
-Maven
+## 📦 Estructura del Proyecto
 
-Postman
+- 📁 `controller` → Controladores REST de cada entidad  
+- 📁 `services` → Lógica de negocio  
+- 📁 `repository` → Repositorios personalizados  
+- 📁 `jparepository` → Repositorios JPA (`JpaRepository`)  
+- 📁 `model` → Entidades JPA  
+- 📁 `test/controller` → Pruebas unitarias de cada controlador  
 
-JUnit 5 + MockMvc (para pruebas unitarias)
+---
 
-📂 Estructura del Proyecto
-plaintext
-Copiar
-Editar
-📂controller           # Controladores REST para cada entidad
-📂services             # Lógica de negocio por entidad
-📂repository           # Repositorios lógicos personalizados
-📂jparepository        # Interfaces que extienden JpaRepository
-📂model                # Entidades del modelo de dominio
-📂test/controller      # Pruebas unitarias por controlador
+## 🧪 Pruebas realizadas
 
-🔁 Flujo de Uso
-Crear una sucursal.
+### ✅ Pruebas con Postman
 
-Registrar un usuario asociado (por ejemplo, un gerente o empleado).
+Se probaron los endpoints principales de:
 
-Crear un cliente vinculado a la sucursal.
+- Cliente  
+- Usuario  
+- Sucursal  
+- Producto  
+- Pedido  
+- Pago  
+- Historial de Cliente  
 
-Agregar productos (solo perfumes).
+### ✅ Pruebas unitarias (JUnit + MockMvc)
 
-Generar un pedido con productos seleccionados.
+Se implementaron pruebas unitarias completas para todos los controladores del sistema:
 
-Registrar un pago para ese pedido.
+| Controlador                 | Estado        |
+|-----------------------------|---------------|
+| `ClienteController`         | ✅ Completado  |
+| `ProductoController`        | ✅ Completado  |
+| `HistorialClienteController`| ✅ Completado  |
+| `PagoController`            | ✅ Completado  |
+| `PedidoController`          | ✅ Completado  |
+| `SucursalController`        | ✅ Completado  |
+| `UsuarioController`         | ✅ Completado  |
 
-Verificar el total calculado automáticamente.
+---
 
-Consultar historial de compras del cliente.
+## ✔ Ejemplo de flujo completo
 
-🧪 Pruebas Realizadas
-🧭 Pruebas manuales (Postman)
-Se probaron todos los endpoints principales de:
+1. Crear una sucursal.  
+2. Crear un usuario asociado a esa sucursal (trabajador).  
+3. Crear un cliente asociado a la misma sucursal.  
+4. Crear varios productos (perfumes).  
+5. Crear un pedido con productos asociados al cliente.  
+6. Registrar un pago para ese pedido.  
+7. Consultar el total generado automáticamente.  
+8. Consultar historial de compras del cliente.
 
-Cliente
+---
 
-Usuario
+## 🛠 Configuración de la base de datos H2
 
-Sucursal
+- **URL**: `jdbc:h2:mem:testdb`  
+- **Usuario**: `sa`  
+- **Contraseña**: *(dejar en blanco)*  
+- **Consola**: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
 
-Producto
+---
 
-Pedido
+## 🧠 Observaciones
 
-Pago
+- Solo se aceptan productos tipo **perfume**.  
+- Los totales se calculan automáticamente al crear **pedidos** y **pagos**.  
+- El historial de compras del cliente se actualiza cada vez que se registra una nueva compra.  
+- Todas las relaciones JPA están correctamente implementadas con anotaciones como `@ManyToOne`, `@OneToOne`, `@ManyToMany`.
 
-HistorialCliente
+---
 
-✅ Pruebas unitarias automatizadas
-Pruebas desarrolladas con JUnit 5 y MockMvc para todos los controladores:
+## 👨‍💻 Autores
 
-Controlador	Estado
-ClienteController	✅ Completado
-ProductoController	✅ Completado
-HistorialClienteController	✅ Completado
-PagoController	✅ Completado
-PedidoController	✅ Completado
-SucursalController	✅ Completado
-UsuarioController	✅ Completado
+Proyecto académico realizado por:
 
-🗄 Configuración de la Base de Datos (H2)
-URL: jdbc:h2:mem:testdb
-
-Usuario: sa
-
-Contraseña: (dejar en blanco)
-
-Consola: http://localhost:8080/h2-console
-
-📌 Observaciones
-Solo se aceptan productos tipo “perfume”.
-
-Los totales se calculan automáticamente al crear pedidos y pagos.
-
-Las relaciones entre entidades están implementadas correctamente usando JPA:
-
-Cliente ↔️ Sucursal (@ManyToOne)
-
-Usuario ↔️ Sucursal (@ManyToOne)
-
-Pedido ↔️ Cliente / Producto
-
-Pago ↔️ Pedido / Cliente / Producto
-
-HistorialCliente ↔️ Cliente (@OneToOne)
-
-👨‍💻 Autores
-Proyecto académico desarrollado por:
-
-Cristóbal Segovia
-
-Felipe Espinoza
-
-Bastian Sepúlveda
-
+- Cristóbal Segovia.  
+- Felipe Espinoza.  
+- Bastian Sepúlveda.

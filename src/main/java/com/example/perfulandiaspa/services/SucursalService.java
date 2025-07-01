@@ -45,7 +45,7 @@ public class SucursalService {
         return false;
     }
 
-    // Buscar sucursales por ciudad (requiere método en el JpaRepository)
+    // Buscar sucursales por ciudad
     public List<Sucursal> getSucursalesByCiudad(String ciudad) {
         return sucursalJpaRepository.findByCiudad(ciudad);
     }

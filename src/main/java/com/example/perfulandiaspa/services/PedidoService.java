@@ -70,7 +70,7 @@ public class PedidoService {
         return null;
     }
 
-    // Método reutilizable: carga productos reales desde la base de datos y calcula el total
+    // carga productos reales desde la base de datos y calcula el total
     private void cargarProductosYCalcularTotal(Pedido pedido) {
         List<Producto> productos = pedido.getProductos().stream()
                 .map(p -> productoJpaRepository.findById(p.getId()).orElse(null))

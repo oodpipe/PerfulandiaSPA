@@ -34,7 +34,7 @@ class ProductoServiceTest {
         Producto producto1 = new Producto(1, "Perfume A", "Floral", 19990, 10, "Perfume");
         Producto producto2 = new Producto(2, "Perfume B", "Amaderado", 24990, 5, "Perfume");
 
-        // Simulamos la llamada al método findAll
+        // Simulamos la llamada a findAll
         when(productoJpaRepository.findAll()).thenReturn(Arrays.asList(producto1, producto2));
 
         // Llamamos al servicio y verificamos la respuesta
@@ -93,6 +93,6 @@ class ProductoServiceTest {
         // Llamamos al servicio para eliminar el producto
         boolean result = productoService.deleteProducto(1);
         assertTrue(result); // Verifica que el producto haya sido eliminado correctamente
-        verify(productoJpaRepository).deleteById(1); // Verifica que el método deleteById haya sido llamado
+        verify(productoJpaRepository).deleteById(1); // Verifica que deleteById haya sido llamado
     }
 }

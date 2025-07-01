@@ -5,7 +5,9 @@ import com.example.perfulandiaspa.services.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
@@ -25,15 +27,8 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerCliente(@PathVariable Long id) {
-        return clienteService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/{id}/con-historial")
-    public ResponseEntity<Cliente> obtenerClienteConHistorial(@PathVariable Long id) {
-        return clienteService.buscarPorIdConHistorial(id)
-                .map(ResponseEntity::ok)
+        Optional<Cliente> cliente = clienteService.buscarPorId(id);
+        return cliente.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -57,5 +52,19 @@ public class ClienteController {
         return clienteService.eliminarCliente(id) ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.notFound().build();
+    }
+
+    // Nuevos endpoints para perfumería
+    @PostMapping("/{id}/registrar-compra")
+    public ResponseEntity<Void> registrarCompraPerfumeria(
+            @PathVariable Long id,
+            @RequestParam String detalleCompra) {
+        clienteService.registrarCompraEnHistorial(id, detalleCompra);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/compras")
+    public ResponseEntity<List<String>> obtenerComprasCliente(@PathVariable Long id) {
+        return ResponseEntity.of(clienteService.obtenerComprasDelCliente(id));
     }
 }

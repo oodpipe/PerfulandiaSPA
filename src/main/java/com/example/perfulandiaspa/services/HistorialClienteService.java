@@ -15,26 +15,27 @@ public class HistorialClienteService {
         this.historialRepository = historialRepository;
     }
 
+    // Método para registrar compras
     @Transactional
-    public HistorialCliente guardarHistorial(HistorialCliente historial) {
-        return historialRepository.save(historial);
-    }
-
-    @Transactional(readOnly = true)
-    public Optional<HistorialCliente> buscarPorClienteId(Long clienteId) {
-        return historialRepository.findByClienteId(clienteId);
-    }
-
-    @Transactional
-    public void actualizarAlergias(Long id, String alergias) {
-        historialRepository.actualizarAlergias(id, alergias);
-    }
-
-    @Transactional
-    public void agregarVisita(Long clienteId, String visita) {
+    public void registrarCompra(Long clienteId, String detalleCompra) {
         historialRepository.findByClienteId(clienteId).ifPresent(historial -> {
-            historial.getVisitas().add(visita);
+            historial.getCompras().add(detalleCompra);
             historialRepository.save(historial);
         });
+    }
+
+    // Método para actualizar preferencias
+    @Transactional
+    public void actualizarPreferencias(Long clienteId, String preferencias) {
+        historialRepository.findByClienteId(clienteId).ifPresent(historial -> {
+            historial.setPreferenciasFragancias(preferencias);
+            historialRepository.save(historial);
+        });
+    }
+
+    // Método para consultar historial
+    @Transactional(readOnly = true)
+    public Optional<HistorialCliente> obtenerHistorial(Long clienteId) {
+        return historialRepository.findByClienteId(clienteId);
     }
 }

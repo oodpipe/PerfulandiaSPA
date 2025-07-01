@@ -1,9 +1,11 @@
 package com.example.perfulandiaspa.services;
 
 import com.example.perfulandiaspa.model.Cliente;
+import com.example.perfulandiaspa.model.HistorialCliente;
 import com.example.perfulandiaspa.jparepository.ClienteJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,13 +29,8 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Cliente> buscarPorIdConHistorial(Long id) {
-        return clienteRepository.findByIdWithHistorial(id);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Cliente> buscarPorNombre(String termino) {
-        return clienteRepository.buscarPorNombre(termino);
+    public List<Cliente> buscarPorNombre(String nombre) {
+        return clienteRepository.findByNombreContainingIgnoreCase(nombre);
     }
 
     @Transactional
@@ -55,5 +52,29 @@ public class ClienteService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void registrarCompraEnHistorial(Long clienteId, String detalleCompra) {
+        clienteRepository.findById(clienteId).ifPresent(cliente -> {
+            if (cliente.getHistorialPerfumeria() == null) {
+                HistorialCliente historial = new HistorialCliente();
+                historial.setCliente(cliente);
+                cliente.setHistorialPerfumeria(historial);
+            }
+            cliente.getHistorialPerfumeria().getCompras().add(detalleCompra);
+            clienteRepository.save(cliente);
+        });
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<String>> obtenerComprasDelCliente(Long clienteId) {
+        return clienteRepository.findById(clienteId)
+                .map(cliente -> {
+                    if (cliente.getHistorialPerfumeria() != null) {
+                        return cliente.getHistorialPerfumeria().getCompras();
+                    }
+                    return List.of();
+                });
     }
 }

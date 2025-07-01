@@ -15,26 +15,18 @@ public class HistorialCliente {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", unique = true, nullable = false)
+    @JoinColumn(name = "cliente_id", unique = true)
     private Cliente cliente;
 
     @ElementCollection
-    @CollectionTable(name = "historial_visitas",
+    @CollectionTable(name = "compras_perfumeria",
             joinColumns = @JoinColumn(name = "historial_id"))
-    @Column(name = "visita")
-    private List<String> visitas = new ArrayList<>();
+    @Column(name = "compra")
+    private List<String> compras = new ArrayList<>();
 
-    @Lob
-    private String alergias;
-
-    @Lob
-    private String condicionesMedicas;
-
-    private String preferencias;
-
-    @Column(updatable = false)
+    private String alergiasIngredientes;
+    private String preferenciasFragancias;
     private LocalDateTime fechaRegistro;
-
     private LocalDateTime fechaUltimaActualizacion;
 
     @PrePersist

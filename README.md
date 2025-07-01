@@ -1,64 +1,113 @@
-# 🧴 Perfulandia SPA
+🧴 Perfulandia SPA – Sistema de Gestión de Perfumería
+Perfulandia SPA es un sistema de gestión integral para una tienda de perfumes. Permite administrar pedidos, pagos, productos, clientes, usuarios y sucursales. Está construido en Java usando Spring Boot y cuenta con pruebas unitarias completas para asegurar la calidad del software.
 
-Perfulandia SPA es un sistema de gestión de pedidos, pagos, productos, clientes, usuarios y sucursales desarrollado en Java con Spring Boot. Este sistema simula el funcionamiento de una tienda de perfumes que opera con usuarios administrativos y clientes que realizan pedidos.
+🚀 Tecnologías Utilizadas
+Java 17
 
-## 🚀 Tecnologías utilizadas
+Spring Boot
 
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- H2 Database (en memoria)
-- Lombok
-- Postman (para pruebas de API)
-- Maven
+Spring Data JPA
 
-## 📦 Estructura del Proyecto
+H2 Database (en memoria)
 
-- 📁 controller
-- 📁 jparepository
-- 📁 model
-- 📁 repository
-- 📁 services
+Lombok
 
-## 🧪 Pruebas realizadas
+Maven
 
-Las pruebas se realizaron usando Postman. Se probaron todos los endpoints principales de:
+Postman
 
-- **Cliente**
-- **Usuario**
-- **Sucursal**
-- **Producto**
-- **Pedido**
-- **Pago**
+JUnit 5 + MockMvc (para pruebas unitarias)
 
-### ✔ Ejemplo de flujo completo:
+📂 Estructura del Proyecto
+plaintext
+Copiar
+Editar
+📂controller           # Controladores REST para cada entidad
+📂services             # Lógica de negocio por entidad
+📂repository           # Repositorios lógicos personalizados
+📂jparepository        # Interfaces que extienden JpaRepository
+📂model                # Entidades del modelo de dominio
+📂test/controller      # Pruebas unitarias por controlador
 
-1. Crear una Sucursal.
-2. Crear un Usuario asociado a esa sucursal (trabajador)
-3. Crear un Cliente asociado a esa sucursal.
-4. Crear varios Productos (perfumes).
-5. Crear un Pedido con productos asociados al Cliente.
-6. Crear un Pago para ese Pedido.
-7. Consultar el total calculado automáticamente.
-8. Ver registros en la consola de H2 Database (`/h2-console`).
+🔁 Flujo de Uso
+Crear una sucursal.
 
-## 🛠 Configuración de la base de datos H2
+Registrar un usuario asociado (por ejemplo, un gerente o empleado).
 
-- URL: `jdbc:h2:mem:testdb`
-- Usuario: `sa`
-- Contraseña: *(dejar en blanco)*
-- Consola: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+Crear un cliente vinculado a la sucursal.
 
-## 🧠 Observaciones
+Agregar productos (solo perfumes).
 
-- Solo se aceptan productos tipo “perfume”.
-- Los totales se calculan automáticamente al crear Pedidos y Pagos.
-- Relación Cliente-Sucursal y Usuario-Sucursal implementada con `@ManyToOne`.
+Generar un pedido con productos seleccionados.
 
-## 📌 Autor
+Registrar un pago para ese pedido.
 
-Proyecto académico realizado por 
-  
-  - Cristóbal Segovia.
-  - Felipe Espinoza.
-  - Bastian Sepúlveda.
+Verificar el total calculado automáticamente.
+
+Consultar historial de compras del cliente.
+
+🧪 Pruebas Realizadas
+🧭 Pruebas manuales (Postman)
+Se probaron todos los endpoints principales de:
+
+Cliente
+
+Usuario
+
+Sucursal
+
+Producto
+
+Pedido
+
+Pago
+
+HistorialCliente
+
+✅ Pruebas unitarias automatizadas
+Pruebas desarrolladas con JUnit 5 y MockMvc para todos los controladores:
+
+Controlador	Estado
+ClienteController	✅ Completado
+ProductoController	✅ Completado
+HistorialClienteController	✅ Completado
+PagoController	✅ Completado
+PedidoController	✅ Completado
+SucursalController	✅ Completado
+UsuarioController	✅ Completado
+
+🗄 Configuración de la Base de Datos (H2)
+URL: jdbc:h2:mem:testdb
+
+Usuario: sa
+
+Contraseña: (dejar en blanco)
+
+Consola: http://localhost:8080/h2-console
+
+📌 Observaciones
+Solo se aceptan productos tipo “perfume”.
+
+Los totales se calculan automáticamente al crear pedidos y pagos.
+
+Las relaciones entre entidades están implementadas correctamente usando JPA:
+
+Cliente ↔️ Sucursal (@ManyToOne)
+
+Usuario ↔️ Sucursal (@ManyToOne)
+
+Pedido ↔️ Cliente / Producto
+
+Pago ↔️ Pedido / Cliente / Producto
+
+HistorialCliente ↔️ Cliente (@OneToOne)
+
+👨‍💻 Autores
+Proyecto académico desarrollado por:
+
+Cristóbal Segovia
+
+Felipe Espinoza
+
+Bastian Sepúlveda
+

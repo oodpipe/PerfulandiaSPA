@@ -2,35 +2,25 @@ package com.example.perfulandiaspa.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID autoincremental
+    private int id;
 
     private String nombre;
     private String email;
     private String direccion;
     private String telefono;
-    private LocalDate fechaRegistro;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne // Muchos clientes pueden pertenecer a una sucursal
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
-
-    @OneToOne(mappedBy = "cliente",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private HistorialCliente historialPerfumeria;
-
-    @PrePersist
-    public void prePersist() {
-        this.fechaRegistro = LocalDate.now();
-    }
 }

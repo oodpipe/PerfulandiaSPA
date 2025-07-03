@@ -22,7 +22,7 @@ Perfulandia SPA es un sistema de gestión de pedidos, pagos, productos, clientes
 - 📁 `controller` → Controladores REST de cada entidad  
 - 📁 `services` → Lógica de negocio  
 - 📁 `repository` → Repositorios personalizados  
-- 📁 `jparepository` → Repositorios JPA (`CrudRepository`, `JpaRepository`)  
+- 📁 `jparepository` → Repositorios JPA (`JpaRepository`)  
 - 📁 `model` → Entidades JPA  
 - 📁 `test/controller` → Pruebas unitarias de cada controlador  
 
